@@ -1,0 +1,17 @@
+09-15 16:23:41.496 18952-19241/? I/g: Listening Port Number 5665
+09-15 16:23:52.906 18952-19241/? I/b: Number of Events 7
+09-15 16:23:52.916 18952-19241/? I/g: Listening Port Number 5665
+09-15 16:23:56.336 18952-19241/? I/a: Number of device : 6
+09-15 16:23:56.336 18952-19241/? I/g: Listening Port Number 5665
+09-15 16:24:01.006 18952-19241/? I/a: Number of device : 6
+09-15 16:25:21.906 18952-19241/? I/g:  Unicast response : Encrypt a3 38 8f 25 4f 74 56 ac a9 5c 7a 52 94 73 24 31 dc 51 01 ea c2 63 15 77 a3 dd aa c2 9a fb 39 5c fe fd d2 17 a2 39 ae 4e 20 07 3f fd 77 fa a5 48 37 6b 72 4d 2e a7 2e aa 67 5a 27 08 e7 dd 12 3c f0 2c b0 7e 1c b5 52 61 33 c0 be c5 49 e7 69 2d 50 21 d3 e4 65 65 6b 81 be f2 b2 8e d2 b3 d5 3b 28 0f f9 9e 4d 96 54 27 e4 ea 2a bd 16 0c 34 a3 b0 ba 2e ff ad 08 a6 60 6a 6a 5f 87 ab 65 d7 8f ae fb d5 55 f0 67 27 41 d6 98 1f 4d 9a 34 d7 c7 c6 a1 3b 37 87 8f 5b 82 6f 4f 81 62 a1 c8 d8 79 62 c1 cb ef 2b 5a 1f 94 ae 76 91 c7 74 15 d6 8b c6 a1 3b 37 87 8f 5b 82 6f 4f 81 62 a1 c8 d8 79 8e 0e b2 45 ee a9 3a d9 21 64 bd 52 e3 7c 88 7a 
+09-15 16:25:21.936 18952-19241/? I/g:  UniCast response : 24 00 06 ff ff 00 c6 00 01 4c 69 76 69 6e 67 20 52 6f 6f 6d 00 00 00 00 00 00 00 00 00 01 6e dd e2 e2 06 01 00 00 ff ff 00 02 48 61 6c 6c 77 61 79 00 00 00 00 00 00 00 00 00 00 00 00 00 00 f7 a8 4e 96 04 01 00 00 ff ff 00 03 4b 69 74 63 68 65 6e 00 00 00 00 00 00 00 00 00 00 00 00 00 00 f7 a8 4e 88 04 01 00 00 ff ff 00 04 42 65 64 72 6f 6f 6d 00 00 00 00 00 00 00 00 00 00 00 00 00 00 f7 a8 4e a7 04 01 00 00 ff ff 00 05 61 31 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 f7 a8 4e b2 04 01 00 00 ff ff 00 07 61 33 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 e6 76 9b 8b 08 01 00 00 ff ff 
+09-15 16:25:21.936 18952-19241/? I/a: Total bytes to read : 198
+09-15 16:25:21.936 18952-19241/? I/a: Number of device : 6
+09-15 16:25:21.936 18952-18952/? I/DetectorStatusActivity: Request Type DEVICE_DISCOVER Status : SUCCESS Error Code :RFS_SUCCESS
+09-15 16:25:21.946 18952-18952/? I/DetectorStatusActivity:  Device Count : 6
+09-15 16:25:21.946 18952-18952/? I/DetectorStatusActivity:  Panic Count: 0
+09-15 16:25:21.946 18952-19241/? I/g: Listening Port Number 5665
+09-15 16:25:21.976 18952-18952/? I/d: Request Type DEVICE_DISCOVER Status : SUCCESS Error Code :RFS_SUCCESS
+09-15 16:25:21.976 18952-18952/? I/d: Request Success : type DEVICE_DISCOVER
+09-15 16:25:21.976 18952-18952/? I/d:  Same response from previous 

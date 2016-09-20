@@ -1,0 +1,8 @@
+name,age,gender
+Arunsai,2,male
+Gobi,33,male
+Nandhini,30,female
+Archath,1,male
+Pragath,5,male
+Malathy,32,female
+Poobathi,35,male
