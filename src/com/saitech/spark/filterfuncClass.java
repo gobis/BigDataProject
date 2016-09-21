@@ -14,7 +14,7 @@ public class filterfuncClass implements Serializable{
 	}
 	
 
-	Function Filterfunc = new Function<String,Boolean>() {
+	public Function Filterfunc = new Function<String,Boolean>() {
 
 		@Override
 		public Boolean call(String s) throws Exception {
@@ -26,7 +26,7 @@ public class filterfuncClass implements Serializable{
 	};
 	
 	
-	Function mapFunc = new Function<Row,String>() {
+	public Function mapFunc = new Function<Row,String>() {
 
 		@Override
 		public String call(Row rowdata) throws Exception {

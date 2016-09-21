@@ -1,0 +1,8 @@
+id,toy,peopleid
+1,dino,1
+2,bat,3
+3,ball,3
+4,car,1
+5,bus,2
+6,truck,1
+7,blocks,3

@@ -22,113 +22,151 @@ import org.apache.spark.sql.SQLContext;
 
 import org.apache.spark.api.java.function.Function;
 
-
 @Path("/peoplesql")
-public class PeopleSQL implements Serializable{
+public class PeopleSQL implements Serializable {
 
-	
 	SparkContext sc;
 	SQLContext sqlContext;
-    
 
 	public void init() {
 		SparkConf conf = new SparkConf();
 		conf.setAppName("testAPP");
 		conf.setMaster("local");
 		conf.set("spark.driver.allowMultipleContexts", "true");
-		
+
 		if (null == sc)
 			sc = new SparkContext(conf);
-		
+
 		if (null == sqlContext)
 			sqlContext = new SQLContext(sc);
-		
+
 	}
-	
+
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAllPeople(){
-			
-			init();
-			
-			
-            // need to download separate jar file to support csv file 			
-			DataFrame df = sqlContext.read().format("com.databricks.spark.csv")
-			.option("header", "true")
-			.load("///Users//Gobi//Documents//workspace//BigDataExample//src//com//saitech//spark//names_ages.txt");
-			
-			long output =  df.count();
-			df.printSchema();
-			
-			df.registerTempTable("people");
-			DataFrame results = sqlContext.sql("SELECT * FROM people");
-			JavaRDD<Row> resultRDD =  results.toJavaRDD();
-			
-			
-			filterfuncClass obj = new filterfuncClass();
-			
-			JavaRDD<String> finalRDD = resultRDD.map(obj.mapFunc);
-			
-			List<String> outputList =  finalRDD.collect();
-			
-			GenericEntity<List<String>> result = 
-		            new GenericEntity<List<String>>(outputList) {};
-			
-			
-			results.show();
-			DataFrame nameDF  = df.select("name");
-		//	 GenericEntity<List<DataFrame>> result = 
-		 //          new GenericEntity<List<DataFrame>>((List<DataFrame>) nameDF) {};
-			
-			// String result = String.valueOf(output);
-			
-			return Response.status(200).entity(result).build();
-			
+	public Response getAllPeople() {
+
+		init();
+
+		// need to download separate jar file to support csv file
+		DataFrame df = sqlContext.read().format("com.databricks.spark.csv").option("header", "true")
+				// .load("names_ages.txt");
+				.load("///Users//Gobi//Documents//workspace//BigDataExample//src//com//saitech//spark//names_ages.txt");
+
+		long output = df.count();
+		df.printSchema();
+
+		df.registerTempTable("people");
+		DataFrame results = sqlContext.sql("SELECT * FROM people where age < 12");
+		JavaRDD<Row> resultRDD = results.toJavaRDD();
+
+		filterfuncClass obj = new filterfuncClass();
+
+		JavaRDD<String> finalRDD = resultRDD.map(obj.mapFunc);
+
+		List<String> outputList = finalRDD.collect();
+
+		GenericEntity<List<String>> result = new GenericEntity<List<String>>(outputList) {
+		};
+
+		results.show();
+		
+		df.printSchema();
+		DataFrame nameDF = df.select("name");
+		// GenericEntity<List<DataFrame>> result =
+		// new GenericEntity<List<DataFrame>>((List<DataFrame>) nameDF) {};
+
+		// String result = String.valueOf(output);
+
+		return Response.status(200).entity(result).build();
+
 	}
-	
-	
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/jointable")
+	public Response jointable() {
+
+		init();
+
+		// need to download separate jar file to support csv file
+		DataFrame ppl_df = sqlContext.read().format("com.databricks.spark.csv").option("header", "true")
+				// .load("names_ages.txt");
+				.load("///Users//Gobi//Documents//workspace//BigDataExample//src//com//saitech//spark//names_ages.txt");
+
+		long output = ppl_df.count();
+		ppl_df.printSchema();
+
+		ppl_df.registerTempTable("people");
+
+		DataFrame toys_df = sqlContext.read().format("com.databricks.spark.csv").option("header", "true")
+				// .load("names_ages.txt");
+				.load("///Users//Gobi//Documents//workspace//BigDataExample//src//com//saitech//spark//toys.txt");
+
+		toys_df.printSchema();
+
+		toys_df.registerTempTable("toys");
+
+		DataFrame results = sqlContext.sql("SELECT people.name,toys.toy FROM people left join toys on people.id = toys.peopleid");
+		JavaRDD<Row> resultRDD = results.toJavaRDD();
+
+		filterfuncClass obj = new filterfuncClass();
+
+		JavaRDD<String> finalRDD = resultRDD.map(obj.mapFunc);
+
+		List<String> outputList = finalRDD.collect();
+
+		GenericEntity<List<String>> result = new GenericEntity<List<String>>(outputList) {
+		};
+
+		results.show();
+		// DataFrame nameDF = df.select("name");
+		// GenericEntity<List<DataFrame>> result =
+		// new GenericEntity<List<DataFrame>>((List<DataFrame>) nameDF) {};
+
+		// String result = String.valueOf(output);
+
+		return Response.status(200).entity(result).build();
+
+	}
+
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{param1}")
-	public Response getFilterPeople(@PathParam("param1") final String filterStr){
-			
-			init();
-			
-			
-            // need to download separate jar file to support csv file 			
-			DataFrame df = sqlContext.read().format("com.databricks.spark.csv")
-			.option("header", "true")
-			.load("///Users//Gobi//Documents//workspace//BigDataExample//src//com//saitech//spark//names_ages.txt");
-			
-			
-			df.registerTempTable("people");
-			DataFrame results = sqlContext.sql("SELECT * FROM people");
-			JavaRDD<Row> resultRDD =  results.toJavaRDD();
-			
-			
-			filterfuncClass obj = new filterfuncClass();
-			obj.setFilterData(filterStr);
-			
-			JavaRDD<String> finalRDD1 = resultRDD.map(obj.mapFunc);
-			JavaRDD<String> finalRDD = finalRDD1.filter(obj.Filterfunc);
-			
-			List<String> outputList =  finalRDD.collect();
-			
-			GenericEntity<List<String>> result = 
-		            new GenericEntity<List<String>>(outputList) {};
-			
-			
-			results.show();
-			DataFrame nameDF  = df.select("name");
-		//	 GenericEntity<List<DataFrame>> result = 
-		 //          new GenericEntity<List<DataFrame>>((List<DataFrame>) nameDF) {};
-			
-			// String result = String.valueOf(output);
-			
-			return Response.status(200).entity(result).build();
-			
+	public Response getFilterPeople(@PathParam("param1") final String filterStr) {
+
+		init();
+
+		// need to download separate jar file to support csv file
+		DataFrame df = sqlContext.read().format("com.databricks.spark.csv").option("header", "true")
+				.load("names_ages.txt"); // relative path below one is absolute
+											// path
+		// .load("///Users//Gobi//Documents//workspace//BigDataExample//src//com//saitech//spark//names_ages.txt");
+
+		df.registerTempTable("people");
+		DataFrame results = sqlContext.sql("SELECT * FROM people");
+		JavaRDD<Row> resultRDD = results.toJavaRDD();
+
+		filterfuncClass obj = new filterfuncClass();
+		obj.setFilterData(filterStr);
+
+		JavaRDD<String> finalRDD1 = resultRDD.map(obj.mapFunc);
+		JavaRDD<String> finalRDD = finalRDD1.filter(obj.Filterfunc);
+
+		List<String> outputList = finalRDD.collect();
+
+		GenericEntity<List<String>> result = new GenericEntity<List<String>>(outputList) {
+		};
+
+		results.show();
+		DataFrame nameDF = df.select("name");
+		// GenericEntity<List<DataFrame>> result =
+		// new GenericEntity<List<DataFrame>>((List<DataFrame>) nameDF) {};
+
+		// String result = String.valueOf(output);
+
+		return Response.status(200).entity(result).build();
+
 	}
 
-	
-	
 }
